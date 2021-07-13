@@ -42,7 +42,9 @@ describe('Authorization test', () => {
         expect(tokenParts.length).toBe(NUMBER_OF_JWT_TOKEN_PARTS);
 
         const encodedBodyPart = tokenParts[BODY_JWT_TOKEN_PART_INDEX];
-        const payload = JSON.parse(new Buffer(encodedBodyPart, 'base64').toString('utf8'));
+        const payload = JSON.parse(
+          new Buffer(encodedBodyPart, 'base64').toString('utf8'),
+        );
 
         expect(payload).toHaveProperty('email');
 
