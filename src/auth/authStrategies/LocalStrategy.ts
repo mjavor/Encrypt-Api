@@ -7,13 +7,14 @@ import { UserProvider } from '../../user/service/UserProvider';
 import { hasNotValue } from '../../common/function/Nullable';
 import { ArgonHashVerifier } from '../services/ArgonHashVerifier';
 import { PasswordVerifier } from '../services/PasswordVerifier';
-import { LOGIN_FIREWALL } from '../../common/const/firewall';
+import { LOGIN_FIREWALL } from '../../common/const/Firewall';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy, LOGIN_FIREWALL) {
   constructor(
     @Inject(UserProvider) private readonly userProvider: UserProviderInterface,
-    @Inject(ArgonHashVerifier) private readonly passwordVerifier: PasswordVerifier,
+    @Inject(ArgonHashVerifier)
+    private readonly passwordVerifier: PasswordVerifier,
   ) {
     super({
       passwordField: 'password',
@@ -27,7 +28,10 @@ export class LocalStrategy extends PassportStrategy(Strategy, LOGIN_FIREWALL) {
       //....
     }
 
-    const isPasswordCorrect = await this.passwordVerifier.verify(password, user.passwordHash);
+    const isPasswordCorrect = await this.passwordVerifier.verify(
+      password,
+      user.passwordHash,
+    );
     if (!isPasswordCorrect) {
       //....
     }
