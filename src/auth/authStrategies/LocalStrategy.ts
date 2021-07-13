@@ -1,6 +1,6 @@
 import { Strategy } from 'passport-local';
 import { PassportStrategy } from '@nestjs/passport';
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { User } from '../../user/entity/User';
 import { UserProviderInterface } from '../../user/service/UserProviderInterface';
 import { UserProvider } from '../../user/service/UserProvider';
@@ -25,7 +25,7 @@ export class LocalStrategy extends PassportStrategy(Strategy, LOGIN_FIREWALL) {
   async validate(username: string, password: string): Promise<User> {
     const user = await this.userProvider.findByEmail(username);
     if (hasNotValue(user)) {
-      //....
+      throw new UnauthorizedException();
     }
 
     const isPasswordCorrect = await this.passwordVerifier.verify(
@@ -33,7 +33,7 @@ export class LocalStrategy extends PassportStrategy(Strategy, LOGIN_FIREWALL) {
       user.passwordHash,
     );
     if (!isPasswordCorrect) {
-      //....
+      throw new UnauthorizedException();
     }
 
     return user;
