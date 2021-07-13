@@ -3,9 +3,14 @@ import { UserModule } from '../user/UserModule';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JWT_EXPIRES_IN, JWT_SECRET } from '../common/const/Config';
+import { AuthController } from './controller/AuthController';
+import { LocalStrategy } from './authStrategies/LocalStrategy';
+import { ArgonHashVerifier } from './services/ArgonHashVerifier';
+import { JwtTokenManager } from './services/JwtTokenManager';
 
 @Module({
   imports: [
+    ConfigModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -25,6 +30,10 @@ import { JWT_EXPIRES_IN, JWT_SECRET } from '../common/const/Config';
       useFactory: (configService: ConfigService) =>
         configService.get<string>(JWT_SECRET),
     },
+    LocalStrategy,
+    ArgonHashVerifier,
+    JwtTokenManager,
   ],
+  controllers: [AuthController],
 })
 export class AuthModule {}
