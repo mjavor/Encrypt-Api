@@ -1,1 +1,3 @@
-export interface ContentProvider {}
+export interface ContentProvider {
+  getContent(): Buffer;
+}
