@@ -5,16 +5,16 @@ import { User } from '../../user/entity/User';
 import { UserProviderInterface } from '../../user/service/UserProviderInterface';
 import { UserProvider } from '../../user/service/UserProvider';
 import { hasNotValue } from '../../common/function/Nullable';
-import { ArgonHashVerifier } from '../services/ArgonHashVerifier';
-import { PasswordVerifier } from '../services/PasswordVerifier';
+import { ArgonHashManager } from '../services/ArgonHashManager';
+import { PasswordHashManager } from '../services/PasswordHashManager';
 import { LOGIN_FIREWALL } from '../../common/const/Firewall';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy, LOGIN_FIREWALL) {
   constructor(
     @Inject(UserProvider) private readonly userProvider: UserProviderInterface,
-    @Inject(ArgonHashVerifier)
-    private readonly passwordVerifier: PasswordVerifier,
+    @Inject(ArgonHashManager)
+    private readonly passwordVerifier: PasswordHashManager,
   ) {
     super({
       passwordField: 'password',

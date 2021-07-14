@@ -2,6 +2,7 @@ import { HttpServer, HttpStatus, INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from '../src/app.module';
 import * as request from 'supertest';
+import { loadFixtures } from '../src/common/function/LoadFixtures';
 
 describe('Authorization test', () => {
   const NUMBER_OF_JWT_TOKEN_PARTS = 3;
@@ -17,6 +18,7 @@ describe('Authorization test', () => {
 
     app = moduleFixture.createNestApplication();
     await app.init();
+    await loadFixtures(app);
     httpServer = app.getHttpServer();
   });
 
