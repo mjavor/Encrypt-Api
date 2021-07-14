@@ -7,6 +7,7 @@ import { AuthController } from './controller/AuthController';
 import { LocalStrategy } from './authStrategies/LocalStrategy';
 import { ArgonHashManager } from './services/ArgonHashManager';
 import { JwtTokenManager } from './services/JwtTokenManager';
+import { JwtStrategy } from './authStrategies/JwtStrategy';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { JwtTokenManager } from './services/JwtTokenManager';
         configService.get<string>(JWT_SECRET),
     },
     LocalStrategy,
+    JwtStrategy,
     ArgonHashManager,
     JwtTokenManager,
   ],
