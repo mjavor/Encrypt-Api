@@ -1,0 +1,17 @@
+[
+  {
+    "id": "a700ef85-22f7-47dc-89d0-ee8a37188c91",
+    "emailAddress": "jackstone@gmail.com",
+    "plainPassword": "correcthorsebatterystaple"
+  },
+  {
+    "id": "8c183108-9be9-4df6-b48f-b8cf6d87fb8c",
+    "emailAddress": "johndoe@yahoo.com",
+    "plainPassword": "qwerty4321"
+  },
+  {
+    "id": "0e0e2da9-0dba-4ac8-990e-9c21b5782bbe",
+    "emailAddress": "bon321@gmail.com",
+    "plainPassword": "asdfasdf1234"
+  }
+]
