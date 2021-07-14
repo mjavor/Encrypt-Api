@@ -7,5 +7,5 @@ type EncryptedContentSuccessResponse = {
 };
 
 type EncryptedContentFailureResponse = {
-  encryptedContent: string;
+  error: string;
 };
