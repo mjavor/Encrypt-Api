@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { AppModule } from './AppModule';
 import { loadFixtures } from './common/function/LoadFixtures';
 
 async function bootstrap() {

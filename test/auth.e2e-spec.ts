@@ -1,6 +1,6 @@
 import { HttpServer, HttpStatus, INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { AppModule } from '../src/app.module';
+import { AppModule } from '../src/AppModule';
 import * as request from 'supertest';
 import { loadFixtures } from '../src/common/function/LoadFixtures';
 
