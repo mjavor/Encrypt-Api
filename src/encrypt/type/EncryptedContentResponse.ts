@@ -1,3 +1,11 @@
-export type EncryptedContentResponse = {
+export type EncryptedContentResponse =
+  | EncryptedContentSuccessResponse
+  | EncryptedContentFailureResponse;
+
+type EncryptedContentSuccessResponse = {
+  encryptedContent: string;
+};
+
+type EncryptedContentFailureResponse = {
   encryptedContent: string;
 };

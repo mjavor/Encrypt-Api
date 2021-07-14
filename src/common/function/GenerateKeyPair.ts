@@ -1,11 +1,15 @@
-import { generateKeyPairSync, KeyPairKeyObjectResult } from 'crypto';
+import * as NodeRsa from 'node-rsa';
 
-export const generateRsaKeyPair = async (): Promise<KeyPairKeyObjectResult> =>
-  new Promise((resolve, reject) => {
-    try {
-      const keyPair = generateKeyPairSync('rsa', { modulusLength: 2048 });
-      resolve(keyPair);
-    } catch (error) {
-      reject(error);
-    }
-  });
+export type KeyPair = {
+  publicKey: string;
+  privateKey: string;
+};
+
+export const generateRsaKeyPair = async (): Promise<KeyPair> => {
+  const key = new NodeRsa({ b: 2048 });
+
+  return {
+    privateKey: key.exportKey('pkcs8-private-pem'),
+    publicKey: key.exportKey('pkcs8-public-pem'),
+  };
+};
