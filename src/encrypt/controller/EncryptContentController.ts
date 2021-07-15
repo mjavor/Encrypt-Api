@@ -1,9 +1,9 @@
-import { Controller, Post, Request, UseGuards } from '@nestjs/common';
+import { Controller, Post, Request, UseGuards, HttpStatus, HttpCode, Res } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { JWT_FIREWALL } from '../../common/const/Firewall';
-import { EncryptedContentResponse } from '../type/EncryptedContentResponse';
 import { EncryptedContentProvider } from '../service/EncryptedContentProvider';
 import { LackOfKeyError } from '../error/LackOfKeyError';
+import { Response } from 'express';
 
 @UseGuards(AuthGuard(JWT_FIREWALL))
 @Controller('api')
@@ -12,20 +12,21 @@ export class EncryptContentController {
     private readonly encryptedContentProvider: EncryptedContentProvider,
   ) {}
 
+  @HttpCode(HttpStatus.OK)
   @Post('encrypt')
-  async encryptContent(@Request() { user }): Promise<EncryptedContentResponse> {
+  async encryptContent(@Request() { user }, @Res() response: Response) {
     try {
       const encryptedContent =
         await this.encryptedContentProvider.getEncryptedContent(user);
 
-      return {
-        encryptedContent,
-      };
+      return response.status(HttpStatus.FAILED_DEPENDENCY).send({
+          encryptedContent
+      });
     } catch (error) {
       if (error instanceof LackOfKeyError) {
-        return {
+        return response.status(HttpStatus.FAILED_DEPENDENCY).send({
           error: `User hasn't got rsa keys generated.`,
-        };
+        });
       }
       throw error;
     }
