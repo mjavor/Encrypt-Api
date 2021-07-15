@@ -5,7 +5,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JWT_EXPIRES_IN, JWT_SECRET } from '../common/const/Config';
 import { AuthController } from './controller/AuthController';
 import { LocalStrategy } from './authStrategies/LocalStrategy';
-import { ArgonHashManager } from './services/ArgonHashManager';
+import { BcryptHashManager } from './services/BcryptHashManager';
 import { JwtTokenManager } from './services/JwtTokenManager';
 import { JwtStrategy } from './authStrategies/JwtStrategy';
 
@@ -33,10 +33,10 @@ import { JwtStrategy } from './authStrategies/JwtStrategy';
     },
     LocalStrategy,
     JwtStrategy,
-    ArgonHashManager,
+    BcryptHashManager,
     JwtTokenManager,
   ],
   controllers: [AuthController],
-  exports: [ArgonHashManager],
+  exports: [BcryptHashManager],
 })
 export class AuthModule {}

@@ -5,7 +5,7 @@ import { User } from '../../user/entity/User';
 import { UserProviderInterface } from '../../user/service/UserProviderInterface';
 import { UserProvider } from '../../user/service/UserProvider';
 import { hasNotValue } from '../../common/function/Nullable';
-import { ArgonHashManager } from '../services/ArgonHashManager';
+import { BcryptHashManager } from '../services/BcryptHashManager';
 import { PasswordHashManager } from '../services/PasswordHashManager';
 import { LOGIN_FIREWALL } from '../../common/const/Firewall';
 
@@ -13,7 +13,7 @@ import { LOGIN_FIREWALL } from '../../common/const/Firewall';
 export class LocalStrategy extends PassportStrategy(Strategy, LOGIN_FIREWALL) {
   constructor(
     @Inject(UserProvider) private readonly userProvider: UserProviderInterface,
-    @Inject(ArgonHashManager)
+    @Inject(BcryptHashManager)
     private readonly passwordVerifier: PasswordHashManager,
   ) {
     super({

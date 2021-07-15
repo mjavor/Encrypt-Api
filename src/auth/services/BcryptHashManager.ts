@@ -1,14 +1,14 @@
 import { PasswordHashManager } from './PasswordHashManager';
-import * as argon from 'argon2';
+import { hash, compare } from 'bcrypt';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class ArgonHashManager implements PasswordHashManager {
+export class BcryptHashManager implements PasswordHashManager {
   async verify(phrase: string, hash: string): Promise<boolean> {
-    return argon.verify(hash, phrase);
+    return compare(phrase, hash);
   }
 
   hash(phrase: string): Promise<string> {
-    return argon.hash(phrase);
+    return hash(phrase, 12);
   }
 }

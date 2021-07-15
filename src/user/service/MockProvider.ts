@@ -2,13 +2,13 @@ import { User } from '../entity/User';
 import { Inject, Injectable } from '@nestjs/common';
 import { readFile } from 'fs/promises';
 import { resolve } from 'path';
-import { ArgonHashManager } from '../../auth/services/ArgonHashManager';
+import { BcryptHashManager } from '../../auth/services/BcryptHashManager';
 import { PasswordHashManager } from '../../auth/services/PasswordHashManager';
 
 @Injectable()
 export class MockProvider {
   constructor(
-    @Inject(ArgonHashManager)
+    @Inject(BcryptHashManager)
     private readonly passwordHashManager: PasswordHashManager,
   ) {}
 
