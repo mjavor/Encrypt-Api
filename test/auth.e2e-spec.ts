@@ -68,7 +68,7 @@ describe('Authorization test', () => {
       })
       .expect(HttpStatus.UNAUTHORIZED)
       .expect(({ body }) => {
-        expect(body).toHaveProperty('error');
+        expect(body).toHaveProperty('message');
       });
   });
 });
