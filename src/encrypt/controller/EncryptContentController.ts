@@ -1,4 +1,12 @@
-import { Controller, Post, Request, UseGuards, HttpStatus, HttpCode, Res } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Request,
+  UseGuards,
+  HttpStatus,
+  HttpCode,
+  Res,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { JWT_FIREWALL } from '../../common/const/Firewall';
 import { EncryptedContentProvider } from '../service/EncryptedContentProvider';
@@ -20,7 +28,7 @@ export class EncryptContentController {
         await this.encryptedContentProvider.getEncryptedContent(user);
 
       return response.status(HttpStatus.FAILED_DEPENDENCY).send({
-          encryptedContent
+        encryptedContent,
       });
     } catch (error) {
       if (error instanceof LackOfKeyError) {

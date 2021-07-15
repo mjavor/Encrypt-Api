@@ -17,10 +17,18 @@ describe('Test EncryptedContentProvider', () => {
     const contentProviderMock = mock<SamplePdfProvider>(SamplePdfProvider);
     const rsaEncrypterMock = mock<RsaEncrypter>(RsaEncrypter);
 
-    const provider = new EncryptedContentProvider(instance(keystoreMock), contentProviderMock, rsaEncrypterMock);
+    const provider = new EncryptedContentProvider(
+      instance(keystoreMock),
+      contentProviderMock,
+      rsaEncrypterMock,
+    );
 
     // Act
-    const f = async () => { await provider.getEncryptedContent(new User(userIdWithoutKeys, 'anything', 'anything')) };
+    const f = async () => {
+      await provider.getEncryptedContent(
+        new User(userIdWithoutKeys, 'anything', 'anything'),
+      );
+    };
 
     //Assert
     expect(f()).rejects.toThrow(LackOfKeyError);
@@ -39,13 +47,18 @@ describe('Test EncryptedContentProvider', () => {
     const rsaEncrypterMock = mock<RsaEncrypter>(RsaEncrypter);
     when(rsaEncrypterMock.encrypt(null, publicKey)).thenReturn(encrypted);
 
-    const provider = new EncryptedContentProvider(instance(keystoreMock), instance(contentProviderMock), instance(rsaEncrypterMock));
+    const provider = new EncryptedContentProvider(
+      instance(keystoreMock),
+      instance(contentProviderMock),
+      instance(rsaEncrypterMock),
+    );
 
     // Act
-    const result = await provider.getEncryptedContent(new User(userIdWithKeys, 'anything', 'anything'));
+    const result = await provider.getEncryptedContent(
+      new User(userIdWithKeys, 'anything', 'anything'),
+    );
 
     //Assert
     expect(result).toBe(encrypted);
   });
-
-})
+});
